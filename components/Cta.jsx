@@ -15,14 +15,20 @@ export default function Cta() {
 
         {/* Форма отправляет на почту: бэкенда у лендинга нет и не нужно. Когда появится CRM-хук,
             меняется только action. Метка скрыта визуально, но доступна скринридеру: плейсхолдер
-            меткой не является. */}
-        <form className={s.form} action="https://formsubmit.co/stepan@everpine.io" method="POST">
+            меткой не является.
+
+            ВНИМАНИЕ при смене адреса: FormSubmit привязан к конкретному ящику и требует
+            подтверждения. Первая отправка на новый адрес письмо не доставляет — вместо этого
+            присылает туда ссылку активации. Пока по ней не перешли, форма выглядит рабочей
+            (пользователь видит успех), а заявки не приходят. Проверять только реальной
+            отправкой с чужой почты. */}
+        <form className={s.form} action="https://formsubmit.co/ceo@everpine.io" method="POST">
           <label htmlFor="email" className={s.srOnly}>Your email</label>
           <input id="email" name="email" type="email" required placeholder="you@company.com"
                  autoComplete="email" className={s.input} />
           <button className="btn" type="submit">Talk to us</button>
         </form>
-        <p className={s.note}>Or write to stepan@everpine.io. We answer the same day.</p>
+        <p className={s.note}>Or write to ceo@everpine.io. We answer the same day.</p>
       </div>
     </section>
   )

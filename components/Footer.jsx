@@ -11,7 +11,7 @@ export default function Footer() {
         <div className={s.row}>
           <span className={s.mark}><Logo width={20} height={20} /> Everpine</span>
           <p className={s.meta}>© Everpine</p>
-          <a href="mailto:stepan@everpine.io" className={s.mail}>stepan@everpine.io</a>
+          <a href="mailto:ceo@everpine.io" className={s.mail}>ceo@everpine.io</a>
         </div>
       </div>
     </footer>
