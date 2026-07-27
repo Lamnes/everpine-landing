@@ -2,6 +2,7 @@ import Nav from '../components/Nav'
 import Hero from '../components/Hero'
 import Proof from '../components/Proof'
 import Shot from '../components/Shot'
+import Founder from '../components/Founder'
 import Cta from '../components/Cta'
 import Footer from '../components/Footer'
 import Reveal from '../components/Reveal'
@@ -62,6 +63,10 @@ export default function Page() {
                 This is the part nobody else does. It is why the loop closes instead of ending
                 in a spreadsheet.
               </p>
+              <p className={`body ${s.facts}`}>
+                <span><b className="num">1</b> payment splits across every supplier on the order.</span>
+                <span><b className="num">0</b> exports between POS, stock and the ledger.</span>
+              </p>
             </div>
             <Shot
               src="/assets/money.png" width={1004} height={1032} className="portrait"
@@ -70,6 +75,7 @@ export default function Page() {
           </div>
         </section>
 
+        <Founder />
         <Cta />
       </main>
       <Footer />

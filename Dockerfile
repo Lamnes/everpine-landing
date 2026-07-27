@@ -8,10 +8,14 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-# Публичный адрес вшивается в сборку (og:url, канонические ссылки), поэтому он аргумент,
+# Публичный адрес вшивается в сборку (абсолютный og:image), поэтому он аргумент,
 # а не переменная запуска: у статики нет момента запуска.
-ARG NEXT_PUBLIC_SITE_URL=https://everpine.io
+ARG NEXT_PUBLIC_SITE_URL=
+# Запасной вариант: Railway отдаёт домен сервиса сам. Без него забытая переменная означает
+# og:image на ещё не существующем everpine.io — то есть пустое превью ссылки в Slack.
+ARG RAILWAY_PUBLIC_DOMAIN=
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV RAILWAY_PUBLIC_DOMAIN=$RAILWAY_PUBLIC_DOMAIN
 RUN npm run build
 
 FROM nginx:alpine AS runtime

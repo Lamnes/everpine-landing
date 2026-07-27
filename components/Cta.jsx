@@ -4,9 +4,13 @@ export default function Cta() {
   return (
     <section className="section" id="talk">
       <div className="wrap">
-        <h2>Built in Austin, running on real restaurant data.</h2>
+        {/* Прежний заголовок обещал «running on real restaurant data» — клиентов пока нет,
+            и в заявке это сказано прямо. Расхождение сайта с заявкой читается партнёром как
+            приукрашивание, поэтому здесь ровно то же, что и там: срок и стадия. */}
+        <h2>Built in 14 months. Launching with the first pilot cohort.</h2>
         <p className="lede">
-          We are talking to independent operators and to investors who want the loop, not another dashboard.
+          We are talking to independent operators in Los Angeles and to investors who want the loop,
+          not another dashboard.
         </p>
 
         {/* Форма отправляет на почту: бэкенда у лендинга нет и не нужно. Когда появится CRM-хук,

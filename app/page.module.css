@@ -1,6 +1,11 @@
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
 .mirror .text { order: 2; }
 
+/* Две строки-свойства продукта. В полосе фактов они стояли как proof, хотя проверить их
+   со стороны нечем; здесь, рядом с кадром сплита, они наконец подкреплены картинкой. */
+.facts { color: var(--text); margin-top: 18px; padding-left: 16px; border-left: 2px solid var(--mint); }
+.facts span + span { display: block; margin-top: 4px; }
+
 @media (max-width: 900px) {
   .split { grid-template-columns: 1fr; gap: 28px; }
   .mirror .text { order: 0; }

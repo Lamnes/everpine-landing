@@ -1,0 +1,22 @@
+/* Блок компактный намеренно: это одна строка доверия перед CTA, а не раздел «о команде».
+   Свой вертикальный отступ меньше секционного — иначе между ним и CTA возникает провал. */
+.wrapper { padding: calc(var(--section-y) * .62) 0; }
+
+.card {
+  background: var(--ink-2); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 22px 26px; max-width: 720px;
+}
+.line { color: var(--text-2); max-width: 60ch; }
+.name { font-family: var(--font-head); font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+
+.link {
+  display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 600;
+  color: var(--mint); text-decoration: none; border-bottom: 1px solid transparent;
+}
+.link:hover { border-bottom-color: var(--mint); }
+.link:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 2px; }
+
+@media (max-width: 640px) {
+  .wrapper { padding: calc(var(--section-y-m) * .8) 0; }
+  .card { padding: 18px 20px; }
+}

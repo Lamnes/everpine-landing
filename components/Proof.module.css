@@ -1,7 +1,18 @@
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; }
 .item { border-left: 1px solid var(--line-2); padding-left: 18px; }
-.value { font-size: 1.9rem; font-weight: 500; letter-spacing: -.03em; color: var(--text); }
-.word  { font-family: var(--font-head); font-weight: 800; letter-spacing: -.02em; }
-.caption { font-size: 13.5px; color: var(--text-3); margin-top: 4px; line-height: 1.45; }
 
-@media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; gap: 22px 18px; } }
+/* Значения выравниваются по нижнему краю и держат высоту двух строк: словесные значения
+   («Personal capital») в узкой колонке переносятся, числовые — нет, и без этого подписи
+   в соседних ячейках разъезжались бы по вертикали. */
+.value {
+  display: flex; align-items: flex-end; min-height: 2.3em;
+  font-size: 1.9rem; font-weight: 500; letter-spacing: -.03em; line-height: 1.15; color: var(--text);
+}
+.word  { font-family: var(--font-head); font-weight: 800; letter-spacing: -.02em; font-size: 1.6rem; }
+.caption { font-size: 13.5px; color: var(--text-3); margin-top: 6px; line-height: 1.45; }
+
+/* Пять ячеек не делятся на два: на средней ширине идём в три колонки (3+2), на узкой — в две
+   (2+2+1). Одинокая ячейка в конце допустима: «Personal capital» читается и в одиночку. */
+@media (max-width: 1040px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 24px 20px; } }
+@media (max-width:  640px) { .grid { grid-template-columns: 1fr 1fr; gap: 22px 18px; }
+                             .value { font-size: 1.7rem; } .word { font-size: 1.42rem; } }
