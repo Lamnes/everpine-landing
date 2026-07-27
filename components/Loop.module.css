@@ -1,0 +1,83 @@
+.loop { margin-top: 56px; position: relative; }
+
+.track { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; position: relative; z-index: 1; }
+
+.node {
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px 14px 15px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .5s var(--ease), background .5s var(--ease), transform .5s var(--ease);
+}
+
+.ico {
+  width: 34px; height: 34px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: var(--ink-3); color: var(--text-2);
+  transition: background .5s var(--ease), color .5s var(--ease);
+}
+
+.label {
+  font-size: 13.5px; font-weight: 600; line-height: 1.35;
+  color: var(--text-2); transition: color .5s var(--ease);
+}
+
+.return { display: block; width: 100%; height: 34px; margin-top: -2px; color: var(--line-2); }
+
+.split {
+  position: absolute; right: 19%; bottom: -8px;   /* под узлом split, а не у края ленты */
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; pointer-events: none;
+}
+.sum { font-size: 12px; color: var(--text); }
+.fan { width: 34px; height: 30px; flex-shrink: 0; }
+.parts { display: flex; flex-direction: column; line-height: 1.25; }
+.parts i { font-style: normal; font-size: 10.5px; color: var(--mint); }
+
+/* Без анимации схема остаётся статичной графикой, и главная мысль цикла должна быть видна
+   сразу: иначе именно её теряет тот, кто отключил движение. Объявляем ПОСЛЕ базового
+   правила, иначе opacity:0 перебивает эту строку. */
+@media (prefers-reduced-motion: reduce) {
+  .split { opacity: 1; }
+}
+
+/* Спецификация анимации — docs/YC_LANDING.md §3. Окно подсветки (3%…15% цикла) намеренно
+   шире слота узла: при точном совпадении между узлами остаются кадры, где не горит ничего,
+   и лента выглядит рваной. */
+@media (prefers-reduced-motion: no-preference) {
+  .node  { animation: nodeCycle  var(--loop-cycle) var(--ease) infinite; animation-delay: calc(var(--i) * var(--loop-step)); }
+  .ico   { animation: icoCycle   var(--loop-cycle) var(--ease) infinite; animation-delay: calc(var(--i) * var(--loop-step)); }
+  .label { animation: labelCycle var(--loop-cycle) var(--ease) infinite; animation-delay: calc(var(--i) * var(--loop-step)); }
+  .split { animation: splitCycle var(--loop-cycle) var(--ease) infinite; animation-delay: calc(4 * var(--loop-step)); }
+}
+
+@keyframes nodeCycle {
+  0%       { border-color: var(--line); background: var(--ink-2); transform: translateY(0); }
+  3%, 15%  { border-color: color-mix(in srgb, var(--mint) 55%, transparent); background: var(--ink-3); transform: translateY(-3px); }
+  18%,100% { border-color: var(--line); background: var(--ink-2); transform: translateY(0); }
+}
+@keyframes icoCycle {
+  0%       { background: var(--ink-3); color: var(--text-2); }
+  3%, 15%  { background: var(--mint);  color: var(--on-mint); }
+  18%,100% { background: var(--ink-3); color: var(--text-2); }
+}
+@keyframes labelCycle {
+  0%       { color: var(--text-2); }
+  3%, 15%  { color: var(--text); }
+  18%,100% { color: var(--text-2); }
+}
+@keyframes splitCycle {
+  0%, 2%   { opacity: 0; }
+  6%, 14%  { opacity: 1; }
+  18%,100% { opacity: 0; }
+}
+
+/* Мобильная версия: вертикальная лента с той же анимацией. */
+@media (max-width: 640px) {
+  .loop { margin-top: 34px; }
+  .track { grid-template-columns: 1fr; gap: 8px; }
+  .node { flex-direction: row; align-items: center; gap: 12px; padding: 12px 14px; }
+  .label { font-size: 14px; }
+  .return { height: 34px; }
+}

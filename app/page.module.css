@@ -1,0 +1,7 @@
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.mirror .text { order: 2; }
+
+@media (max-width: 900px) {
+  .split { grid-template-columns: 1fr; gap: 28px; }
+  .mirror .text { order: 0; }
+}

@@ -1,0 +1,40 @@
+.shot {
+  position: relative; margin: 34px 0 0;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .32);
+}
+
+.bar {
+  height: 34px; display: flex; align-items: center; padding: 0 14px;
+  background: var(--surface-2); border-bottom: 1px solid rgba(26, 43, 34, .09);
+}
+.bar span { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; color: #5C7A68; }
+
+.img { display: block; width: 100%; height: auto; }
+
+.link { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; color: color-mix(in srgb, var(--mint) 75%, transparent); pointer-events: none; }
+
+.callout {
+  position: absolute; right: 24px; bottom: 18px; z-index: 2; margin: 0;
+  background: var(--ink-3); color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--mint) 38%, transparent);
+  border-radius: var(--r-sm);
+  padding: 10px 13px; max-width: 250px;
+  font-size: 13px; line-height: 1.45;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .4);
+}
+.callout b { color: var(--mint); font-weight: 700; }
+
+/* Узкая карточка split: у неё исходные 502 CSS-пикселя почти совпадают с шириной показа. */
+.portrait { max-width: 420px; }
+.portrait .bar { display: none; }
+
+@media (max-width: 640px) {
+  /* Выноска уходит под кадр: поверх узкого фрагмента она закрывает то, что доказывает.
+     Линия при этом скрывается, вести её некуда. */
+  .callout { position: static; max-width: none; margin-top: 12px; box-shadow: none; }
+  .link { display: none; }
+}

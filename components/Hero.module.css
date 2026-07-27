@@ -1,0 +1,6 @@
+/* Верхний отступ сознательно небольшой: hero обязан уместиться в первый экран вместе с CTA,
+   а «воздух» набирается размером заголовка и схемой, а не пустотой сверху. */
+.hero { padding: 64px 0 84px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+@media (max-width: 640px) { .hero { padding: 40px 0 56px; } }

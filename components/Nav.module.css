@@ -1,0 +1,24 @@
+.nav {
+  position: sticky; top: 0; z-index: 20; height: 68px;
+  display: flex; align-items: center;
+  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: saturate(140%) blur(8px);
+}
+.row { display: flex; align-items: center; gap: 20px; }
+
+.mark {
+  text-decoration: none; display: flex; align-items: center; gap: 9px;
+  font-family: var(--font-head); font-weight: 800; font-size: 17px; letter-spacing: -.02em;
+}
+.mark svg { color: var(--mint); }
+
+.links { margin-left: auto; display: flex; align-items: center; gap: 26px; font-size: 14.5px; color: var(--text-2); }
+.links a { text-decoration: none; transition: color .18s var(--ease); }
+.links a:hover { color: var(--text); }
+
+/* На узком экране остаётся только действие: пункты навигации сюда не помещаются,
+   а двухстрочная шапка съедает первый экран. */
+@media (max-width: 640px) {
+  .links a:not([class]) { display: none; }
+}

@@ -1,0 +1,7 @@
+.footer { padding: 34px 0 46px; border-top: 1px solid var(--line); }
+.row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.mark { display: flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 800; font-size: 16px; letter-spacing: -.02em; }
+.mark svg { color: var(--mint); }
+.meta { font-size: 13.5px; color: var(--text-3); }
+.mail { margin-left: auto; color: var(--text-2); text-decoration: none; font-size: 13.5px; }
+.mail:hover { color: var(--text); }

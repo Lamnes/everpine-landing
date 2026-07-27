@@ -1,0 +1,19 @@
+.form { display: flex; gap: 10px; margin-top: 22px; max-width: 470px; }
+
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+.input {
+  flex: 1; min-width: 0;
+  background: var(--ink-2); color: var(--text);
+  border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  padding: 11px 14px; font-family: var(--font-body); font-size: 15px;
+}
+.input::placeholder { color: var(--text-3); }
+.input:focus { outline: 2px solid var(--mint); outline-offset: 1px; border-color: transparent; }
+
+.note { font-size: 13px; color: var(--text-3); margin-top: 10px; }
+
+@media (max-width: 640px) {
+  .form { flex-direction: column; }
+  .form :global(.btn) { width: 100%; }
+}
