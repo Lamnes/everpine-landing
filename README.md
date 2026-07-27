@@ -74,11 +74,29 @@ npm run build      # результат в out/
 ```
 Содержимое `out/` кладётся как есть (S3, Netlify, GitHub Pages, nginx).
 
+### Railway
+
+Railway видит `Dockerfile` и собирает по нему. Ничего настраивать не нужно, кроме переменных
+сервиса:
+
+| Переменная | Зачем |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | публичный адрес; уходит в `og:url` и канонические ссылки. Railway передаёт переменные сервиса в сборку, а `ARG` в Dockerfile её принимает |
+
+**Порт задаёт платформа.** Railway передаёт его в `PORT` и проксирует именно туда. Поэтому
+`nginx.conf.template` слушает `${PORT}`, а не зашитый порт: entrypoint образа подставляет
+значение при старте. Зашитый `listen 80` даёт «Application failed to respond» при полностью
+рабочем контейнере, и по этой ошибке невозможно догадаться, что дело в порте.
+
+Смена адреса сайта требует **передеплоя**, а не перезапуска: адрес вшивается в статику на этапе
+сборки.
+
 ### Docker (тот же путь, что у остального стека)
 
 ```bash
 docker build -t everpine-landing --build-arg NEXT_PUBLIC_SITE_URL=https://everpine.io .
-docker run -p 8080:80 everpine-landing
+docker run -p 8080:80 everpine-landing          # без PORT слушает 80
+docker run -e PORT=8090 -p 8090:8090 everpine-landing   # как на платформе
 ```
 
 `nginx.conf` уже задаёт чистые URL, свою 404, бессрочный кэш для файлов с хэшем в имени,

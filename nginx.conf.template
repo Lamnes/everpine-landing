@@ -1,5 +1,12 @@
+# Шаблон, а не готовый конфиг: официальный образ nginx подставляет переменные окружения
+# в /etc/nginx/templates/*.template при старте. Порт обязан приходить снаружи — платформы
+# вроде Railway передают его в PORT и стучатся именно туда, а зашитый 80 даёт
+# «Application failed to respond» при полностью рабочем контейнере.
+#
+# Переменные самого nginx ($uri, $host) envsubst не трогает: он подставляет только те имена,
+# которые реально есть в окружении.
 server {
-    listen       80;
+    listen       ${PORT};
     server_name  _;
     root         /usr/share/nginx/html;
     index        index.html;

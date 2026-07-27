@@ -15,7 +15,11 @@ ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 RUN npm run build
 
 FROM nginx:alpine AS runtime
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Конфиг кладём шаблоном: entrypoint образа подставит в него PORT перед стартом nginx.
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /app/out /usr/share/nginx/html
+
+# Значение по умолчанию для локального запуска; платформа перезапишет своим.
+ENV PORT=80
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
