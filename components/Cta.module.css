@@ -1,3 +1,20 @@
+/* Блок с формой — единственное место страницы с фоном-мозаикой. Ему задана
+   минимальная высота: силуэт ели строится от высоты блока, и в узкой полосе
+   дерево выродилось бы в пятно. */
+.talk {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+}
+
+/* Содержимое над подложкой. Канвас событий не принимает, но порядок слоёв
+   задаём явно: полагаться на порядок в разметке для интерактивного блока
+   ненадёжно. */
+.above { position: relative; z-index: 1; }
+
 .form { display: flex; gap: 10px; margin-top: 22px; max-width: 470px; }
 
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -22,6 +39,7 @@
 }
 
 @media (max-width: 640px) {
+  .talk { min-height: 420px; }
   .form { flex-direction: column; }
   .form :global(.btn) { width: 100%; }
 }

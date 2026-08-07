@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import MosaicBackdrop from './MosaicBackdrop'
 import s from './Cta.module.css'
 
 // Форма отправляет заявку на свой же адрес /api/lead. Что происходит дальше — дело сервера
@@ -18,6 +19,8 @@ const MAIL = 'ceo@everpine.io'
 
 export default function Cta() {
   const [state, setState] = useState('idle')   // idle | sending | done | error
+  const formRef = useRef(null)
+  const mosaicRef = useRef(null)
 
   const submit = async e => {
     e.preventDefault()
@@ -30,14 +33,18 @@ export default function Cta() {
         body: new URLSearchParams({ email }).toString(),
       })
       setState(res.ok ? 'done' : 'error')
+      // Принятая заявка проходит по мозаике тёплой волной: подтверждение
+      // видно не только текстом, но и самой страницей.
+      if (res.ok) mosaicRef.current?.wave()
     } catch {
       setState('error')
     }
   }
 
   return (
-    <section className="section" id="talk">
-      <div className="wrap">
+    <section className={`section ${s.talk}`} id="talk">
+      <MosaicBackdrop ref={mosaicRef} anchorRef={formRef} />
+      <div className={`wrap ${s.above}`}>
         {/* Прежний заголовок обещал «running on real restaurant data» — клиентов пока нет,
             и в заявке это сказано прямо. Расхождение сайта с заявкой читается партнёром как
             приукрашивание, поэтому здесь ровно то же, что и там: срок и стадия. */}
@@ -51,10 +58,13 @@ export default function Cta() {
           <p className={s.done}>Thank you — we will be in touch shortly.</p>
         ) : (
           // Метка скрыта визуально, но доступна скринридеру: плейсхолдер меткой не является.
-          <form className={s.form} action={ENDPOINT} method="POST" onSubmit={submit}>
+          <form ref={formRef} className={s.form} action={ENDPOINT} method="POST" onSubmit={submit}>
             <label htmlFor="email" className={s.srOnly}>Your email</label>
+            {/* Набор адреса пускает по мозаике кольцо — страница отзывается на
+                ввод. Частоту ограничивает сам компонент. */}
             <input id="email" name="email" type="email" required placeholder="you@company.com"
-                   autoComplete="email" className={s.input} disabled={state === 'sending'} />
+                   autoComplete="email" className={s.input} disabled={state === 'sending'}
+                   onInput={() => mosaicRef.current?.ring()} />
             <button className="btn" type="submit" disabled={state === 'sending'}>
               {state === 'sending' ? 'Sending…' : 'Talk to us'}
             </button>
